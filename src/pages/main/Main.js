@@ -1,10 +1,10 @@
 import React from "react";
 import "./Main.css";
 
-export class Main extends React.Component {
-  render() {
-    return <div />;
-  }
+const Main = () => {
+  return (
+    <h1>Main page</h1>
+  )
 }
 
 export default Main;
