@@ -1,27 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Admin.css";
-import firebase from '../../config/firebase';
+import useFetch from '../../api/useFetch';
 
 const Admin = () => {
     const [charts, setCharts] = useState([]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const db = firebase.firestore();
-            const data = await db.collection("charts").get();
-            console.log(data.docs.map(doc => doc.data()));
-            setCharts(data.docs.map(doc => doc.data()));
-        }
-
-        fetchData();
-    }, [])
+    const loading = useFetch(setCharts, "charts");
+    let testList = <div>loading...</div>
+    if(!loading) testList = charts.map( (chart) => <li key={chart.Id}>{chart.Value}</li>)
 
     return (
         <>
+            <h1>Admin Page</h1>
             <ul>
-                {charts.map(chart => (
-                    <li key={chart.Id}>{chart.Value}</li>
-                ))}
+                {testList}
             </ul>
         </>
     )
